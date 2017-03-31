@@ -136,6 +136,25 @@ class TestFunction(unittest.TestCase):
         self.setup_gpu()
         self.check_call()
 
+    def check_call_all_ndarray(self):
+        x1 = self.x1
+        x2 = self.x2
+        ys = self.f(x1, x2)
+
+        self.assertEqual(len(ys), 2)
+        self.check_check_type_forward()
+
+        for y in ys:
+            self.assertIsInstance(y, type(x1))
+
+    def test_call_all_ndarray_cpu(self):
+        self.check_call_all_ndarray()
+
+    @attr.gpu
+    def test_call_all_ndarray_gpu(self):
+        self.setup_gpu()
+        self.check_call_all_ndarray()
+
     def check_call_ndarray(self):
         x1 = chainer.Variable(self.x1)
         x2 = self.x2

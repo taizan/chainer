@@ -172,11 +172,16 @@ class Function(object):
 
         """
 
-        inputs = [x if isinstance(x, variable.Variable)
-                  else variable.Variable(x)
-                  for x in inputs]
+        no_variable = all([not isinstance(x, chainer.Variable)
+                           for x in inputs])
+        if no_variable:
+            in_data = inputs
+        else:
+            inputs = [x if isinstance(x, chainer.Variable)
+                      else chainer.Variable(x)
+                      for x in inputs]
+            in_data = tuple([x.data for x in inputs])
 
-        in_data = tuple([x.data for x in inputs])
         if chainer.is_debug():
             self._stack = traceback.extract_stack()
 
@@ -205,6 +210,12 @@ class Function(object):
                    for out in outputs):
                 msg = 'NaN is detected on forward computation'
                 raise RuntimeError(msg)
+
+        if no_variable:
+            if len(outputs) == 1:
+                return outputs[0]
+            else:
+                return outputs
 
         ret = tuple([variable.Variable(y) for y in outputs])
 

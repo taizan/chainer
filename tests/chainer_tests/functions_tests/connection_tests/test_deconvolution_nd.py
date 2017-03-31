@@ -260,7 +260,7 @@ class TestDeconvolutionNDarraySupplied(unittest.TestCase):
         b_var = chainer.Variable(b_ary)
         y_var = F.deconvolution_nd(x_var, W_var, b_var)
 
-        testing.assert_allclose(y_ary.data, y_var.data)
+        testing.assert_allclose(y_ary, y_var.data)
 
     def test_array_supplied_cpu(self):
         self.check_array_supplied(self.x_data, self.W_data, self.b_data)

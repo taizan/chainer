@@ -39,7 +39,7 @@ class TestPadDefault(unittest.TestCase):
         y = functions.pad(x_data, self.pad_width, self.mode)
         y_expected = numpy.pad(self.x, self.pad_width, self.mode)
         self.assertEqual(y.dtype, y_expected.dtype)
-        testing.assert_allclose(y.data, y_expected)
+        testing.assert_allclose(y, y_expected)
 
     @condition.retry(3)
     def test_forward_cpu(self):
@@ -100,7 +100,7 @@ class TestPad(unittest.TestCase):
         y_expected = numpy.pad(self.x, self.pad_width, mode=self.mode,
                                constant_values=self.constant_values)
         self.assertEqual(y.dtype, y_expected.dtype)
-        testing.assert_allclose(y.data, y_expected)
+        testing.assert_allclose(y, y_expected)
 
     @condition.retry(3)
     def test_forward_cpu(self):

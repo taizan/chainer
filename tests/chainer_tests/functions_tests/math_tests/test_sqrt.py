@@ -29,7 +29,7 @@ class TestRsqrt(unittest.TestCase):
 
     def test_rsqrt(self):
         x = numpy.random.uniform(0.1, 5, (3, 2)).astype(numpy.float32)
-        testing.assert_allclose(F.rsqrt(x).data, rsqrt(x))
+        testing.assert_allclose(F.rsqrt(x), rsqrt(x))
 
 
 testing.run_module(__name__, __file__)

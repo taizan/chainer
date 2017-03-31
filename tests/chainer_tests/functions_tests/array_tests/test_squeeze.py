@@ -42,7 +42,7 @@ class TestSqueeze(unittest.TestCase):
     def check_forward(self, x_data):
         y = functions.squeeze(x_data, axis=self.axis)
         expected = numpy.squeeze(self.x, axis=self.axis)
-        testing.assert_allclose(y.data, expected, **self.check_forward_options)
+        testing.assert_allclose(y, expected, **self.check_forward_options)
 
     def test_forward_cpu(self):
         self.check_forward(self.x)

@@ -1,3 +1,4 @@
+from chainer import cuda
 from chainer import initializers
 from chainer import link
 from chainer import utils
@@ -67,14 +68,15 @@ class LayerNormalization(link.Chain):
         self.beta.initialize(size)
 
     def _normalize(self, x):
-        size = x.shape[1]
-        mean = broadcast.broadcast_to(
-            (sum.sum(x, axis=1) / size)[:, None],
-            x.shape)
-        std = broadcast.broadcast_to(sqrt.sqrt(
-            sum.sum(square.square(x - mean), axis=1) / size)[:, None],
-            x.shape) + self.eps
-        return (x - mean) / std
+        with cuda.get_device(self._device_id):
+            size = x.shape[1]
+            mean = broadcast.broadcast_to(
+                (sum.sum(x, axis=1) / size)[:, None],
+                x.shape)
+            std = broadcast.broadcast_to(sqrt.sqrt(
+                sum.sum(square.square(x - mean), axis=1) / size)[:, None],
+                x.shape) + self.eps
+            return (x - mean) / std
 
     def __call__(self, x):
         """Apply layer normalization to given input.

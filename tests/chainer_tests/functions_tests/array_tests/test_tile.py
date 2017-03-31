@@ -34,7 +34,7 @@ class TestTile(unittest.TestCase):
         y_expected = numpy.tile(self.x, self.reps)
         self.assertEqual(y.dtype, y_expected.dtype)
         testing.assert_allclose(
-            y.data, y_expected, **self.check_forward_options)
+            y, y_expected, **self.check_forward_options)
 
     def test_forward_cpu(self):
         self.check_forward(self.x)

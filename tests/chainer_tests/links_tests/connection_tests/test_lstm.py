@@ -60,7 +60,7 @@ class TestLSTM(unittest.TestCase):
                                self.link.upward(x2) + self.link.lateral(h1_in))
         testing.assert_allclose(y2.data, y2_expect.data)
         testing.assert_allclose(self.link.h.data[:batch], y2_expect.data)
-        testing.assert_allclose(self.link.h.data[batch:], h1_rest.data)
+        testing.assert_allclose(self.link.h.data[batch:], h1_rest)
 
         x3 = chainer.Variable(x3_data) if self.input_variable else x3_data
         h2_rest = self.link.h

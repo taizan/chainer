@@ -97,7 +97,7 @@ class TestAveragePoolingND(unittest.TestCase):
                                                 pad=pad)
             y_2d = functions.average_pooling_2d(x_data, ksize, stride=stride,
                                                 pad=pad)
-        testing.assert_allclose(y_nd.data, y_2d.data)
+        testing.assert_allclose(y_nd, y_2d)
 
     @condition.retry(3)
     def test_forward_consistency_regression_cpu(self):

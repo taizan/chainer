@@ -120,7 +120,7 @@ class TestUnpoolingND(unittest.TestCase):
         y_2d = functions.unpooling_2d(x_data, ksize, stride=stride, pad=pad,
                                       cover_all=self.cover_all)
         testing.assert_allclose(
-            y_nd.data, y_2d.data, **self.check_forward_options)
+            y_nd, y_2d, **self.check_forward_options)
 
     @condition.retry(3)
     def test_forward_consistency_regression_cpu(self):

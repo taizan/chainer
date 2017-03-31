@@ -127,7 +127,7 @@ class TestMaxPoolingUnpooling(unittest.TestCase):
             y = chainer.functions.unpooling_2d(
                 x, self.k, self.s, self.p, None, self.cover_all)
             x_ = chainer.functions.max_pooling_2d(
-                y, self.k, self.s, self.p, self.cover_all).data
+                y, self.k, self.s, self.p, self.cover_all)
 
         self.assertEqual(x.shape, x_.shape)
         self.assertEqual(x.dtype, x_.dtype)
@@ -163,7 +163,7 @@ class TestAveragePoolingUnpooling(unittest.TestCase):
             y = chainer.functions.unpooling_2d(
                 x, self.k, self.s, self.p, None, False)
             x_ = chainer.functions.average_pooling_2d(
-                y, self.k, self.s, self.p).data
+                y, self.k, self.s, self.p)
 
         self.assertEqual(x.shape, x_.shape)
         self.assertEqual(x.dtype, x_.dtype)
