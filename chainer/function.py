@@ -172,13 +172,13 @@ class Function(object):
 
         """
 
-        no_variable = all([not isinstance(x, chainer.Variable)
+        no_variable = all([not isinstance(x, variable.Variable)
                            for x in inputs])
         if no_variable:
             in_data = inputs
         else:
-            inputs = [x if isinstance(x, chainer.Variable)
-                      else chainer.Variable(x)
+            inputs = [x if isinstance(x, variable.Variable)
+                      else variable.Variable(x)
                       for x in inputs]
             in_data = tuple([x.data for x in inputs])
 
